@@ -124,6 +124,7 @@ export default class Cart {
 
 
   onProductUpdate(cartItem) {
+    console.log (this.cartItems) 
 
     if (document.body.className=="is-modal-open") {
     let modalBody = document.querySelector(`.modal__body`)
@@ -138,8 +139,9 @@ export default class Cart {
     productPrice.innerHTML=`€${newPrice.toFixed(2)}`
     infoPrice.innerHTML = `€${(oldinfoPrice + difference).toFixed(2)}`
     cartItem.count==0? document.body.querySelector(`[data-product-id="${cartItem.product.id}"]`).remove():false
-    let basket_length =Array.from(modalBody.firstChild.childNodes).length
-    basket_length==1? document.querySelector(`.modal`).remove() || document.body.classList.remove(`is-modal-open`) :false
+    let basket_length =Array.from(modalBody.childNodes).length
+    console.log (basket_length)
+    basket_length==2? document.querySelector(`.modal`).remove() || document.body.classList.remove(`is-modal-open`) :false
     }
 
     this.cartIcon.update(this);
@@ -147,12 +149,10 @@ export default class Cart {
 
   onSubmit(event) {
     if (document.body.className=="is-modal-open") {
-      console.log (event) 
       document.querySelector(`button[type="submit"]`).classList.add(`is-loading`)
       let body = document.querySelector(`.cart-form`)
 
       request(this.url,`POST`,body).then((data)=>{
-      console.log (data)
       document.querySelector(`.modal__title`).innerHTML = `Success!`
       this.cartItems=[]
       let newModalBody = createElement(`<div class="modal__body-inner">
