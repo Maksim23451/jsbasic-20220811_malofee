@@ -150,6 +150,7 @@ export default class Cart {
       console.log (event) 
       document.querySelector(`button[type="submit"]`).classList.add(`is-loading`)
       let body = document.querySelector(`.cart-form`)
+
       request(this.url,`POST`,body).then((data)=>{
       console.log (data)
       document.querySelector(`.modal__title`).innerHTML = `Success!`
@@ -163,6 +164,7 @@ export default class Cart {
     </div>`)
        document.querySelector(`.modal__body`).remove()
        document.querySelector(`.modal__inner`).append(newModalBody)
+       this.cartIcon.update(this);
       })
 
     }
